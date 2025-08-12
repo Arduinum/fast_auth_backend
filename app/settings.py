@@ -1,5 +1,7 @@
 from pydantic import SecretStr  
 from pydantic_settings import BaseSettings, SettingsConfigDict 
+from passlib.context import CryptContext
+from typing import ClassVar
 
 
 class ModelConfig(BaseSettings):
@@ -33,6 +35,7 @@ class Settings(ModelConfig):
     """Класс для данных конфига"""
     
     db_settings: SettingsDb = SettingsDb()
+    pwd_context: ClassVar[CryptContext] = CryptContext(schemes=['bcrypt'], deprecated='auto')
 
 
 settings = Settings()
