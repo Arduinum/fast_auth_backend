@@ -1,6 +1,8 @@
+from asyncio import run
+
 from app.database.user_cruds import new_user
 from app.schemas import EditUserAdmin
-from asyncio import run
+from app.settings import settings
 
 
 async def seed_fake_users() -> None:
@@ -12,7 +14,7 @@ async def seed_fake_users() -> None:
         surname='Огурцов',
         patronymic='Михайлович',
         email='test1@yandex.ru',
-        hash_passwd='ddwadwdwreffrgrgrgrrgrgrg#',
+        hash_passwd=settings.pwd_context.hash('ddwadwdwreffrgrgrgrrgrgrg#'),
         is_active=True,
         is_verified=True,
         is_admin=True
@@ -24,7 +26,7 @@ async def seed_fake_users() -> None:
         surname='Цветков',
         patronymic='Михайлович',
         email='test2@yandex.ru',
-        hash_passwd='ddwaffedwdwreffrgrgrgrrgrgrg#',
+        hash_passwd=settings.pwd_context.hash('ddwaffedwdwreffrgrgrgrrgrgrg#'),
         is_active=True,
         is_verified=True,
         is_admin=False
@@ -36,7 +38,7 @@ async def seed_fake_users() -> None:
         surname='Стрельцов',
         patronymic='Михайлович',
         email='test3@yandex.ru',
-        hash_passwd='dffedwdwreffrgrgrgrrgrgrg#',
+        hash_passwd=settings.pwd_context.hash('dffedwdwreffrgrgrgrrgrgrg#'),
         is_active=False,
         is_verified=True,
         is_admin=False
@@ -48,7 +50,7 @@ async def seed_fake_users() -> None:
         surname='Иванов',
         patronymic='Михайлович',
         email='test4@yandex.ru',
-        hash_passwd='dffedwgrgrrgrgrg#',
+        hash_passwd=settings.pwd_context.hash('dffedwgrgrrgrgrg#'),
         is_active=True,
         is_verified=False,
         is_admin=False

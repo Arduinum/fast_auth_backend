@@ -7,7 +7,7 @@ class RegisterUser(BaseModel):
     """Схема регистрации пользователя"""
 
     email: EmailStr
-    passwd: str = Field(..., min_length=8)
+    hash_passwd: str = Field(..., min_length=8)
     name: str
     surname: str
     patronymic: str
@@ -66,3 +66,9 @@ class ChangePasswd(BaseModel):
 
     old_passwd: str = Field(..., min_length=8)
     new_passwd: str = Field(..., min_length=8)
+
+
+class ActiveUserRequest(BaseModel):
+    """Схема данныз для смены активности статуса пользователя"""
+
+    is_active: bool

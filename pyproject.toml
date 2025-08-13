@@ -27,3 +27,4 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
 seed-fake-users = "app.scripts.seed_fake_users:start_seed_users"
+start-backend = "app.main:start_app"
