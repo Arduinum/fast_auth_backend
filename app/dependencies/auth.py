@@ -1,5 +1,4 @@
 from fastapi import HTTPException, status, Request
-from uuid import UUID
 
 from app.utils.jwt_utils import get_headers_token, decode_token
 from app.database.user_cruds import user_in_system_by_id
