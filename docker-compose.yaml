@@ -1,0 +1,16 @@
+services:
+  db:
+    image: postgres:latest
+    container_name: fast_db
+    restart: always
+    environment:
+      - POSTGRES_DB=${NAME_DB}
+      - POSTGRES_USER=${USER_DB}
+      - POSTGRES_PASSWORD=${PASSWORD_DB}
+    ports:
+      - "${PORT_DB}:${INNER_PORT}"
+    volumes:
+      - fast_db:/var/lib/postgresql/data
+
+volumes:
+  fast_db:
