@@ -7,7 +7,7 @@ class RegisterUser(BaseModel):
     """Схема регистрации пользователя"""
 
     email: EmailStr
-    hash_passwd: str = Field(..., min_length=8)
+    passwd: str = Field(..., min_length=8)
     name: str
     surname: str
     patronymic: str
@@ -18,6 +18,28 @@ class LoginUser(BaseModel):
 
     email: EmailStr
     passwd: str = Field(..., min_length=8)
+
+
+class TokenPair(BaseModel):
+    """Схема для токенов"""
+    
+    access_token: str
+    refresh_token: str
+    token_type: str = 'bearer'
+
+
+class TokenAccess(BaseModel):
+    """Схема для access токена"""
+
+    access_token: str
+    token_type: str = 'bearer'
+
+
+class LogoutUser(BaseModel):
+    """Схема для разлогирования пользователя"""
+    
+    id: str
+    email: EmailStr
 
 
 class GetUserData(BaseModel):
@@ -69,6 +91,21 @@ class ChangePasswd(BaseModel):
 
 
 class ActiveUserRequest(BaseModel):
-    """Схема данныз для смены активности статуса пользователя"""
+    """Схема данных для смены активности статуса пользователя"""
 
     is_active: bool
+
+
+class VerifyUser(BaseModel):
+    """Схема данных для верификации пользователя"""
+
+    id: UUID | str
+    is_verified: bool = True
+
+
+class SessionUser(BaseModel):
+    """Схема данных для сессии пользователя"""
+
+    user_id: UUID | str
+    token: str
+    expire_at: datetime

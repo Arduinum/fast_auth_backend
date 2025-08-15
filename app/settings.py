@@ -2,6 +2,7 @@ from pydantic import SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict 
 from passlib.context import CryptContext
 from typing import ClassVar
+import secrets
 
 
 class ModelConfig(BaseSettings):
@@ -36,6 +37,10 @@ class Settings(ModelConfig):
     
     db_settings: SettingsDb = SettingsDb()
     pwd_context: ClassVar[CryptContext] = CryptContext(schemes=['bcrypt'], deprecated='auto')
+    jwt_secret: str = secrets.token_urlsafe(32)
+    jwt_alg: str
+    access_ttl_seconds: int
+    refresh_ttl_seconds: int
 
 
 settings = Settings()

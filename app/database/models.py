@@ -2,7 +2,15 @@ import uuid
 from sqlalchemy import UUID  
 from sqlalchemy.orm import DeclarativeBase 
 from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy import String, Boolean, Text, DateTime, func
+from sqlalchemy import (
+    String, 
+    Boolean, 
+    Text, 
+    DateTime, 
+    func, 
+    Integer,
+    ForeignKey
+)
 from datetime import datetime
 
 
@@ -81,4 +89,43 @@ class User(Base):
         DateTime(timezone=True), 
         server_default=func.now(), 
         default=datetime.now  
+    )
+
+
+class UserSessions(Base):
+    """Модель сессии пользователя"""
+
+    __tablename__ = 'user_sessions'
+
+    id: Mapped[int] = mapped_column(
+        Integer,
+        primary_key=True, 
+        autoincrement=True,
+        name='id'
+    )
+
+    user_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True),
+        ForeignKey('user.id', ondelete='CASCADE'),
+        name='id пользователя',
+        nullable=False
+    )
+
+    token: Mapped[str] = mapped_column(
+        String,
+        name='токен',
+        unique=True,
+        nullable=False
+    )
+
+    is_active: Mapped[bool] = mapped_column(
+        Boolean,
+        name='активный',
+        default=True, 
+        nullable=False
+    )
+    
+    expire_at: Mapped[datetime] = mapped_column(  
+        DateTime(timezone=True), 
+        nullable=False
     )
